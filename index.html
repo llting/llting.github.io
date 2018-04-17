@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Home
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -214,6 +214,163 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/设计模式读书笔记(三)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/17/设计模式读书笔记(三)/" itemprop="url">设计模式读书笔记(三)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-17T23:50:57+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。
+</code></pre><h2 id="创建型设计模式"><a href="#创建型设计模式" class="headerlink" title="创建型设计模式"></a>创建型设计模式</h2><p>创建型设计模式是一类处理对象创建的设计模式，通过某种方法控制对象的创建来避免基本对象创建时可能导致设计上的问题或增加设计上的复杂度。</p>
+<h3 id="带头模范–抽象类"><a href="#带头模范–抽象类" class="headerlink" title="带头模范–抽象类"></a>带头模范–抽象类</h3><p>抽象类：定义一个产品簇，并声明一些必备的方法，如果子类中没有去重写就会抛出错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var Car = function()&#123;&#125;</span><br><span class="line">Car.prototype = &#123;</span><br><span class="line">  getPrice: function()&#123;</span><br><span class="line">    return new Error(&quot;抽象方法不能调用&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  getSpeed: function()&#123;</span><br><span class="line">    return new Error(&quot;抽象方法不能调用&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="幽灵工厂-–-抽象工厂模式"><a href="#幽灵工厂-–-抽象工厂模式" class="headerlink" title="幽灵工厂 – 抽象工厂模式"></a>幽灵工厂 – 抽象工厂模式</h4><p>抽象工厂模式： 抽象类中定义的方法只是显性的指明一些方法，但没有具体的功能实现，具体实现是在对象中，而抽象工厂模式创造出来的也是抽象类，不能创建一个具体的实现类，所以，一般把起作为父类来创建子类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// 抽象工厂方法</span><br><span class="line">var VehicleFactory = function(subType, superType)&#123;</span><br><span class="line">  // 判断抽象工厂中是否有该抽象类</span><br><span class="line">  if(typeof VehicleFactory[superType] == &quot;function&quot;)&#123;</span><br><span class="line">    // 缓存类</span><br><span class="line">    function F()&#123;&#125;</span><br><span class="line">    F.prototype = new VehicleFactory[superType]()</span><br><span class="line">    // 将子类的constructor指向子类</span><br><span class="line">    subType.constructor = subType</span><br><span class="line">    subType.prototype = new F()</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    throw new Error(&quot;未创建抽象类&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VehicleFactory.Car = function()&#123;</span><br><span class="line">  this.type = &apos;car&apos;</span><br><span class="line">&#125;</span><br><span class="line">VehicleFactory.Car.prototype = &#123;</span><br><span class="line">  getPrice: function()&#123;</span><br><span class="line">    return new Error(&quot;抽象方法不能调用&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  getSpeed: function()&#123;</span><br><span class="line">    return new Error(&quot;抽象方法不能调用&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VehicleFactory.Bus = function()&#123;</span><br><span class="line">  this.type = &apos;bar&apos;</span><br><span class="line">&#125;</span><br><span class="line">VehicleFactory.Bus.prototype = &#123;</span><br><span class="line">  getPrice: function()&#123;</span><br><span class="line">    return new Error(&quot;抽象方法不能调用&quot;);</span><br><span class="line">  &#125;,</span><br><span class="line">  getSpeed: function()&#123;</span><br><span class="line">    return new Error(&quot;抽象方法不能调用&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了抽象工厂类后， 我们就可以具体的实现了</p>
+<pre><code>// 宝马
+var BWM = function(price, speed){
+  this.price = price;
+  this.speed = speed
+}
+VehicleFactory(BWM , &quot;Car&quot;)
+BWM.prototype = {
+  getPrice: function(){
+    return this.price;
+  },
+  getSpeed: function(){
+    return this.speed;
+  }
+}
+
+// 兰博基尼
+var Lamborghini = function(price, speed){
+  this.price = price;
+  this.speed = speed
+}
+VehicleFactory(Lamborghini , &quot;Car&quot;)
+Lamborghini.prototype = {
+  getPrice: function(){
+    return this.price;
+  },
+  getSpeed: function(){
+    return this.speed;
+  }
+}
+... ...
+</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>抽象工厂模式是设计模式中最抽象的一种设计模式，也是创建模式中唯一一种抽象化创建模式，该模式创建出的结果不是一个真实的对象实例，而是一个类簇，它制定了类的结构，这也就是区别于简单工厂模式创建单一对象，工厂方法模式创建多类对象.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -257,7 +414,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-15T23:08:26+08:00">
                 2018-04-15
@@ -385,7 +542,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T15:53:22+08:00">
                 2018-04-14
@@ -515,7 +672,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posted on</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-11T23:34:48+08:00">
                 2018-02-11
@@ -660,8 +817,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -711,7 +868,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
