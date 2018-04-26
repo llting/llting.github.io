@@ -100,7 +100,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Autore'
+      author: 'Author'
     },
     algolia: {
       applicationID: '',
@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archivi
+            Archiv
           </a>
         </li>
       
@@ -214,6 +214,136 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/设计模式读书笔记(六)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/25/设计模式读书笔记(六)/" itemprop="url">设计模式读书笔记(六)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-25T23:29:53+08:00">
+                2018-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="代理模式-–-牛郎织女"><a href="#代理模式-–-牛郎织女" class="headerlink" title="代理模式 – 牛郎织女"></a>代理模式 – 牛郎织女</h3><p>代理模式：由于一个对象不能直接引用另一个对象，所以需要通过代理对象在这两个对象之间起到中介作用。</p>
+<p>由于用户相册模块上传的照片量越来越大，导致不得不把照片重新部署在另一个域（可以理解为另一台服务器），这样对于前端来说，用户上传图片的请求路径发生变化，指向其他服务器，这就导致了跨域问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 当前域 www.xx.com</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  url : &apos;http://upload.xx.com/upload.php&apos;,</span><br><span class="line">  success:function(data)&#123;</span><br><span class="line">    // 无法获取返回值</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这一切只是因为跨域，浏览器为了保证安全，不允许跨域调用其他页面的资源，资源就包括操作DOM，图片，js，css等, javaScript还对同一域名不同的端口号，同一域名不同的协议，域名和域名对应的IP，主域与子域，子域与子域等做了限制，都不能直接调用。</p>
+<h4 id="示例如下"><a href="#示例如下" class="headerlink" title="示例如下"></a>示例如下</h4><p>同一域名不同的端口号： <a href="http://www.baidu.com:8080" target="_blank" rel="noopener">http://www.baidu.com:8080</a> <a href="http://www.baidu.com:8081" target="_blank" rel="noopener">http://www.baidu.com:8081</a><br>同一域名不同的协议: <a href="http://wwww.baidu.com" target="_blank" rel="noopener">http://wwww.baidu.com</a> <a href="https://www.baidu.com" target="_blank" rel="noopener">https://www.baidu.com</a><br>域名与域名对应的IP： <a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a> <a href="http://61.135.169.125" target="_blank" rel="noopener">http://61.135.169.125</a><br>主域与子域 ： <a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a> <a href="http://b.baidu.com" target="_blank" rel="noopener">http://b.baidu.com</a><br>子域与子域： <a href="http://tieba.baidu.com" target="_blank" rel="noopener">http://tieba.baidu.com</a> <a href="http://kongjian.baidu.com" target="_blank" rel="noopener">http://kongjian.baidu.com</a></p>
+<p>那么既然这样，相册页面还能与子域的图片上传模块所在的服务器进行通信吗？<br>其实，相册页面与图片上传模块所在的服务器之间可抽象成两个对象，那么现在的问题是，他们被一条河隔开了，就像天河的牛郎织女，只能远远相望，同样，想让跨域两端的对象之间实现通信，就需要找个代理对象来实现他们之间的通信。</p>
+<p>当然，代理对象有很多，简单一点的如img之类的标签通过src属性可以向其他域下的服务器发送请求，不过这类请求是get请求，并且是单向的，它不会有响应数据，就好比你站在河的一边向另一边发送消息，又不想让别人听到看到，你将写好信息的纸放在口袋里，然后扔过去，不过河对岸有没有收到你的消息就不知道了，比如，站长平台就会对你操作页面的信息通过img标签发送get请求，他们统计的情况，你就不知道了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var Count = (function()&#123;</span><br><span class="line">  var img = new Image()</span><br><span class="line">  // 返回统计函数</span><br><span class="line">  return function(param)&#123;</span><br><span class="line">    var src = &apos;http://www.count.com/a.gif?&apos;</span><br><span class="line">    // 拼接字符串请求</span><br><span class="line">    for(var i in param)&#123;</span><br><span class="line">      str += i + &apos;=&apos; +param[i]</span><br><span class="line">    &#125;</span><br><span class="line">    // 发送请求</span><br><span class="line">    img.src = str</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>第二种代理对象形式是通过script标签,比如我们在CDN（内容分发网络，一种更接近用户的网络架构，是用户可以就近获取内容）上更快速的获得jQuery文件时，用<br>“<srcipt src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></srcipt>“来获取，然而这种获取方式获取到的script内容是不变的，而我们需要的代理对象，是对页面与浏览器间通信的，显然，上面的方式还不能满足我们的需求，我们需要的代理对象是能够相互通信的，不过我们知道通过src属性可实现get请求，因此我们可以在src指向的url（请求地址）上面添加一些字段信息，然后服务器端获取这些字段，再相应的生成一份内容。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">function jsonpCallBack(res,req)&#123;</span><br><span class="line">  console.log(res,req)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script src=&quot;http://localhost/test/jsonp.php?callback=jsonpCallBack&amp;data=getJsonData&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">// 另外一个域下服务器请求接口</span><br><span class="line">&lt;?php</span><br><span class="line">  $data = $_GET[&quot;data&quot;]</span><br><span class="line">  $callback = $_GET[&quot;callback&quot;]</span><br><span class="line">  echo $callback.&quot;(&apos;success&apos;,&apos;&quot;.data.&quot;&apos;)&quot;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这种方式也被称作为JSONP方式，有时候我们还会通过一个方法来动态生成需要的JSONP中的<script>标签</p>
+<h4 id="代理模板"><a href="#代理模板" class="headerlink" title="代理模板"></a>代理模板</h4><p>与之类似的还有另外一种方案是被称为代理模板的方案，既然不同域之间相互调用对方的页面资源是有限制的，自己域中的两个页面相互之间的调用是可以的，即代理页面B调用被代理页面A中的对象的方式是可以的。那么要实现这种方式，我们只需要在被访问的域中，请求返回的HEADER重定向到代理页面，并在代理页面处理被代理页面A就可以了。<br>既然是这样的话，那么我们在自己的域中要有A，B两个页面了<br>比如：我们将自己的域称为X域，另外的域称为Y域，X域中要有一个被代理页面，即A页面。在A页面中应该具备三个部分，第一个部分是发送请求的模块，如form表单提交，负责向Y域发送请求，并提供额外两组数据，其一是要执行的回调函数名称，其二是X域中代理模板所在的路径，并将target目标指向内嵌框架。第二个部分是一个内嵌框架，如iframe，负责提供第一个部分中form表单的响应目标target的指向，并将嵌入X域中的代理页面作为子页面，即B页面。第三个部分是 一个回调函数，负责处理发返回的数据。</p>
+<p>代理模板的知识，在跨域资源中尤为明显，后续将专门展开关于跨域的知识详解，现在不做展开，等完成这个设计模式系列再详细写出关于跨域的解决方案。</p>
+</script></p>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -257,9 +387,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Scritto il</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post creato" itemprop="dateCreated datePublished" datetime="2018-04-19T22:57:39+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T22:57:39+08:00">
                 2018-04-19
               </time>
             
@@ -388,9 +518,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Scritto il</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post creato" itemprop="dateCreated datePublished" datetime="2018-04-18T22:38:05+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-18T22:38:05+08:00">
                 2018-04-18
               </time>
             
@@ -515,9 +645,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Scritto il</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post creato" itemprop="dateCreated datePublished" datetime="2018-04-17T23:50:57+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-17T23:50:57+08:00">
                 2018-04-17
               </time>
             
@@ -672,9 +802,9 @@ Lamborghini.prototype = {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Scritto il</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post creato" itemprop="dateCreated datePublished" datetime="2018-04-15T23:08:26+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-15T23:08:26+08:00">
                 2018-04-15
               </time>
             
@@ -800,9 +930,9 @@ Lamborghini.prototype = {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Scritto il</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post creato" itemprop="dateCreated datePublished" datetime="2018-04-14T15:53:22+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T15:53:22+08:00">
                 2018-04-14
               </time>
             
@@ -930,9 +1060,9 @@ Lamborghini.prototype = {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Scritto il</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post creato" itemprop="dateCreated datePublished" datetime="2018-02-11T23:34:48+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-11T23:34:48+08:00">
                 2018-02-11
               </time>
             
@@ -1075,8 +1205,8 @@ Lamborghini.prototype = {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1126,7 +1256,7 @@ Lamborghini.prototype = {
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -1134,7 +1264,7 @@ Lamborghini.prototype = {
 
 
 
-  <div class="theme-info">Tema &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
