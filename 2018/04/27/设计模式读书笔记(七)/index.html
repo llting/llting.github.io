@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="装饰者模式 – 房子装修装饰者模式：在不改变原对象的基础上，通过对其进行包装拓展（添加属性或者方法）使原有对象可以满足用户更复杂的需求。 例子当用户表单需求发生改变，以前是当用户点击输入框时，如果输入框输入的内容有限制，那么其后面显示用户输入内容限制的文案格式的提示文案，现在多加一条，默认输入框上边显示一行提示文案，当用户点击输入框时文案消失 12345678// 输入框元素var telInpu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式读书笔记(七)">
+<meta property="og:url" content="http://yoursite.com/2018/04/27/设计模式读书笔记(七)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="装饰者模式 – 房子装修装饰者模式：在不改变原对象的基础上，通过对其进行包装拓展（添加属性或者方法）使原有对象可以满足用户更复杂的需求。 例子当用户表单需求发生改变，以前是当用户点击输入框时，如果输入框输入的内容有限制，那么其后面显示用户输入内容限制的文案格式的提示文案，现在多加一条，默认输入框上边显示一行提示文案，当用户点击输入框时文案消失 12345678// 输入框元素var telInpu">
+<meta property="og:updated_time" content="2018-04-27T15:18:27.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式读书笔记(七)">
+<meta name="twitter:description" content="装饰者模式 – 房子装修装饰者模式：在不改变原对象的基础上，通过对其进行包装拓展（添加属性或者方法）使原有对象可以满足用户更复杂的需求。 例子当用户表单需求发生改变，以前是当用户点击输入框时，如果输入框输入的内容有限制，那么其后面显示用户输入内容限制的文案格式的提示文案，现在多加一条，默认输入框上边显示一行提示文案，当用户点击输入框时文案消失 12345678// 输入框元素var telInpu">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/27/设计模式读书笔记(七)/"/>
+
+
+
+
+
+  <title>设计模式读书笔记(七) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/27/设计模式读书笔记(七)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式读书笔记(七)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-27T22:14:35+08:00">
+                2018-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="装饰者模式-–-房子装修"><a href="#装饰者模式-–-房子装修" class="headerlink" title="装饰者模式 – 房子装修"></a>装饰者模式 – 房子装修</h3><p>装饰者模式：在不改变原对象的基础上，通过对其进行包装拓展（添加属性或者方法）使原有对象可以满足用户更复杂的需求。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>当用户表单需求发生改变，以前是当用户点击输入框时，如果输入框输入的内容有限制，那么其后面显示用户输入内容限制的文案格式的提示文案，现在多加一条，默认输入框上边显示一行提示文案，当用户点击输入框时文案消失</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 输入框元素</span><br><span class="line">var telInput = document.getElementById(&quot;tel_input&quot;)</span><br><span class="line">// 输入格式提示文案</span><br><span class="line">var telWarnText = doucment.getElementById(&quot;tel_warn_text&quot;)</span><br><span class="line">// 点击输入框显示输入框输入格式提示文案</span><br><span class="line">input.onclik = function()&#123;</span><br><span class="line">  telWarnText.style.display = &apos;inline-block&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>// 不加思索的添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 输入框元素</span><br><span class="line">var telInput = document.getElementById(&quot;tel_input&quot;)</span><br><span class="line">// 输入格式提示文案</span><br><span class="line">var telWarnText = doucment.getElementById(&quot;tel_warn_text&quot;)</span><br><span class="line">// 输入框提示输入文案</span><br><span class="line">var telDemoText = doucment.getElementById(&quot;tel_demo_text&quot;)</span><br><span class="line">// 点击输入框显示输入框输入格式提示文案并隐藏输入提示文案</span><br><span class="line">input.onclik = function()&#123;</span><br><span class="line">  telWarnText.style.display = &apos;inline-block&apos;</span><br><span class="line">  telDemoText.style.display = &apos;none&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可是悲剧发生了，修改了一个电话输入框，后面还有姓名输入框，地址输入框，要在像电话输入框中一个一个这样查找功能代码，然后一个一个修改，这样真的好吗？<br>这里，装饰者模式就派上用场了</p>
+<h4 id="装饰已有的房子"><a href="#装饰已有的房子" class="headerlink" title="装饰已有的房子"></a>装饰已有的房子</h4><p>装饰者模式，比如买一个新房子，你想住的更舒服，那么刚刚买的未装修过得房子住的就不舒服，就不能满足你的需求，那么要对其装修一番，放一个床，放一个桌子，摆上一张沙发，抬进来一个电视，这样就更舒服。同样，装饰者模式也是同样的道理，原有的功能已经不能满足用户的需求，此时你要做的是为原有功能添砖加瓦，设置新功能和属性来满足用户提出的需求。</p>
+<p>首先明确原有的功能是什么，原有功能就是原来写的代码，要做的就是在原有功能的基础上增加新功能来满足用户提出的需求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">// 装饰者</span><br><span class="line">var decorator = function(input,fn)&#123;</span><br><span class="line">  // 事件源</span><br><span class="line">  var input =document.getElementById(input)</span><br><span class="line">  // 若事件源已经绑定方法</span><br><span class="line">  if(typeof input.onclick == &apos;function&apos;)&#123;</span><br><span class="line">    // 缓存事件源原有回调函数</span><br><span class="line">    var oldClick =input.onclick;</span><br><span class="line">    // 为事件源定义新的事件</span><br><span class="line">    input.onclick = function()&#123;</span><br><span class="line">      // 事件源原有的函数</span><br><span class="line">      oldClick()</span><br><span class="line">      // 新增加的函数</span><br><span class="line">      fn()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    input.onclick = fn;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 电话输入框功能装饰</span><br><span class="line">decorator(&apos;tel_input&apos;,function()&#123;</span><br><span class="line">  document.getElementById(&apos;tel_demo_text&apos;).style.display = &apos;none&apos;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 姓名输入框功能装饰</span><br><span class="line">decorator(&apos;name_input&apos;,function()&#123;</span><br><span class="line">  document.getElementById(&apos;name_demo_text&apos;).style.display = &apos;none&apos;</span><br><span class="line">&#125;)</span><br><span class="line">//地址输入框功能装饰</span><br><span class="line">decorator(&apos;adress_input&apos;,function()&#123;</span><br><span class="line">  document.getElementById(&apos;adress_demo_text&apos;).style.display = &apos;none&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>通过这种方法，那么无论原来是否有绑定方法，都可以增添新功能<br>装饰者模式，就是在原有对象上进行属性和方法的添加</p>
+<p>适配器模式也是对一个对象的装饰来适配其他对象，那么装饰者模式和适配器模式有什么不同呢？<br>适配器模式是对原有对象的适配，添加的方法与原有方法功能上大致相似，但是装饰者提供的方法与原来的方法功能上是有一定区别的，再者，使用适配器时我们新增的方法是要调用原来的方法，在装饰者模式中，是要调用原来的方法，而不需要了解原有对象有哪些功能。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/25/设计模式读书笔记(六)/" rel="next" title="设计模式读书笔记(六)">
+                <i class="fa fa-chevron-left"></i> 设计模式读书笔记(六)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰者模式-–-房子装修"><span class="nav-number">1.</span> <span class="nav-text">装饰者模式 – 房子装修</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰已有的房子"><span class="nav-number">1.2.</span> <span class="nav-text">装饰已有的房子</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
