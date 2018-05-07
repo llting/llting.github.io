@@ -228,6 +228,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/设计模式读书笔记(九)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/07/设计模式读书笔记(九)/" itemprop="url">设计模式读书笔记(八)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-07T23:27:19+08:00">
+                2018-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="超值午餐-–-组合模式"><a href="#超值午餐-–-组合模式" class="headerlink" title="超值午餐 – 组合模式"></a>超值午餐 – 组合模式</h3><p>组合模式: 又称部分-整体模式，将对象组合成树形结构以表示“部分整体”的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>场景如下：<br>“新闻模块加一条文字新闻”<br>“新闻模块加一条带有直播图标的文字新闻”<br>“新闻模块加一条已分类的文字新闻”<br>“新闻模块加一条图片新闻”<br>“将图片新闻和文字新闻放在一行”</p>
+<p>我们发现，需求中的这些新闻大致可以分为相互独立的几种类型，而对某类新闻做修改时，又不会影响到其他类新闻，这样完全可以将每一类新闻抽象成面向对象编程中的一个类，这样就不会担心日后对某类新闻需求更改而影响到其他类新闻，只需要针对于这些新闻类做出更改即可，如果要完成经理提出的需求，仅需要针对这些新闻中挑选一些组合起来。先将新闻模块整体拆分成个体来对待，然后需要时，将这些不同的个体组合起来即可。</p>
+<h4 id="餐厅里的套餐业务"><a href="#餐厅里的套餐业务" class="headerlink" title="餐厅里的套餐业务"></a>餐厅里的套餐业务</h4><p>举个例子，比如我们中午吃饭，我们一个一个的点的话，很浪费时间，但提供套餐组合的话，我们只需要提供套餐的名字即可，这样又节省时间，餐厅也更加快速响应，虽然餐厅提供了套餐的名字，但是他们在制作的时候，仍然是一个一个制作出来的，每一部分都是独立的个体，而提供给我们的，就是这些个体的组合，最终可以给我们复杂的套餐。</p>
+<p>对于使用组合模式而言，有一个唯一的要求就是需要接口命名的统一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var News = function()&#123;</span><br><span class="line">  // 子容器</span><br><span class="line">  this.children = []</span><br><span class="line">  // 当前组件元素</span><br><span class="line">  this.el = null;</span><br><span class="line">&#125;</span><br><span class="line">News.prototype = &#123;</span><br><span class="line">  init: function()&#123;</span><br><span class="line">    throw new error(&quot;请重写你的方法&quot;)</span><br><span class="line">  &#125;,</span><br><span class="line">  add: function()&#123;</span><br><span class="line">    throw new error(&quot;请重写你的方法&quot;)</span><br><span class="line">  &#125;,</span><br><span class="line">  getElement: function()&#123;</span><br><span class="line">    throw new error(&quot;请重写你的方法&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/设计模式读书笔记(八)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1460,7 +1584,7 @@ Lamborghini.prototype = {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
