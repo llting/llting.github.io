@@ -79,16 +79,12 @@
 
 
 
-<meta name="description" content="设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。 观察者模式(一)在许多设计中，经常涉及多个对象都对一个特殊对象中的数据变化感兴趣，而且这多个对象都希望跟踪那个特殊对象中的数据变化，在这样的情况下就可以使用观察者模式。 从一个简单的场景讲起不同国家的女人难受时如何用同一句话安慰？欧美：“You need cry，dear（你需要哭出来，宝贝）.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript设计模式之我见">
-<meta property="og:url" content="http://yoursite.com/2018/02/11/observer/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。 观察者模式(一)在许多设计中，经常涉及多个对象都对一个特殊对象中的数据变化感兴趣，而且这多个对象都希望跟踪那个特殊对象中的数据变化，在这样的情况下就可以使用观察者模式。 从一个简单的场景讲起不同国家的女人难受时如何用同一句话安慰？欧美：“You need cry，dear（你需要哭出来，宝贝）.">
-<meta property="og:updated_time" content="2018-02-13T16:16:24.957Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript设计模式之我见">
-<meta name="twitter:description" content="设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。 观察者模式(一)在许多设计中，经常涉及多个对象都对一个特殊对象中的数据变化感兴趣，而且这多个对象都希望跟踪那个特殊对象中的数据变化，在这样的情况下就可以使用观察者模式。 从一个简单的场景讲起不同国家的女人难受时如何用同一句话安慰？欧美：“You need cry，dear（你需要哭出来，宝贝）.">
+<meta name="twitter:title" content="Hexo">
 
 
 
@@ -118,13 +114,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/02/11/observer/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
 
 
-  <title>JavaScript设计模式之我见 | Hexo</title>
+  <title>Hexo</title>
   
 
 
@@ -143,7 +139,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,9 +213,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -248,7 +245,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript设计模式之我见</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/11/observer/" itemprop="url">JavaScript设计模式之我见</a></h1>
         
 
         <div class="post-meta">
@@ -298,7 +297,9 @@
       
 
       
-        <pre><code>设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。
+        
+          
+            <pre><code>设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。
 </code></pre><h2 id="观察者模式-一"><a href="#观察者模式-一" class="headerlink" title="观察者模式(一)"></a>观察者模式(一)</h2><p>在许多设计中，经常涉及多个对象都对一个特殊对象中的数据变化感兴趣，而且这多个对象都希望跟踪那个特殊对象中的数据变化，在这样的情况下就可以使用观察者模式。</p>
 <h3 id="从一个简单的场景讲起"><a href="#从一个简单的场景讲起" class="headerlink" title="从一个简单的场景讲起"></a>从一个简单的场景讲起</h3><p>不同国家的女人难受时如何用同一句话安慰？<br>欧美：“You need cry，dear（你需要哭出来，宝贝）.”<br>中国：“有你的快递儿！”</p>
 <p>快递我们大家都很熟悉，相信你也经常情不自禁买买买<br>在我们买买买的时候，每一位快递小哥需要对自己所辖范围内送出包裹，他手里拿着几十上百件快递对应不同的客户，他是如何做到把每一件快递都精准无误的送到客户手里的呢？（这不废话吗？ 他当然有的我电话号码，住址等信息了啊！）</p>
@@ -321,6 +322,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Subject &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.observers = new ObserverList();</span><br><span class="line">  &#125;</span><br><span class="line">  addObserver(observer) &#123;</span><br><span class="line">    this.observers.add(observer)</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  removeObserver(observer) &#123;</span><br><span class="line">    this.observers.remove(observer)</span><br><span class="line">  &#125;</span><br><span class="line">  notify(...args) &#123;</span><br><span class="line">    this.observers.observerList.forEach((ob) =&gt; &#123;</span><br><span class="line">      //调用观察者的update方法</span><br><span class="line">      ob.update(...args)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>More Info: <a href="https://github.com/FE-star/exercise17" target="_blank" rel="noopener">观察者模式</a></p>
 
+          
+        
       
     </div>
     
@@ -337,28 +340,12 @@
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/14/设计模式读书笔记(一)/" rel="prev" title="设计模式读书笔记(一)">
-                设计模式读书笔记(一) <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -368,11 +355,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -380,10 +370,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -404,17 +390,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table Des Matières
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Ensemble
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -456,22 +433,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式-一"><span class="nav-number">1.</span> <span class="nav-text">观察者模式(一)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从一个简单的场景讲起"><span class="nav-number">1.1.</span> <span class="nav-text">从一个简单的场景讲起</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更进一步"><span class="nav-number">1.2.</span> <span class="nav-text">更进一步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES5写法"><span class="nav-number">1.3.1.</span> <span class="nav-text">ES5写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ES6写法"><span class="nav-number">1.3.2.</span> <span class="nav-text">ES6写法</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -605,10 +566,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

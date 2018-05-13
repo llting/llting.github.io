@@ -81,13 +81,13 @@
 
 <meta name="description" content="超值午餐 – 组合模式组合模式: 又称部分-整体模式，将对象组合成树形结构以表示“部分整体”的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性。 例子场景如下：“新闻模块加一条文字新闻”“新闻模块加一条带有直播图标的文字新闻”“新闻模块加一条已分类的文字新闻”“新闻模块加一条图片新闻”“将图片新闻和文字新闻放在一行” 我们发现，需求中的这些新闻大致可以分为相互独立的几种类型，而对某类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式读书笔记(八)">
+<meta property="og:title" content="设计模式读书笔记(九)">
 <meta property="og:url" content="http://yoursite.com/2018/05/07/设计模式读书笔记(九)/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="超值午餐 – 组合模式组合模式: 又称部分-整体模式，将对象组合成树形结构以表示“部分整体”的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性。 例子场景如下：“新闻模块加一条文字新闻”“新闻模块加一条带有直播图标的文字新闻”“新闻模块加一条已分类的文字新闻”“新闻模块加一条图片新闻”“将图片新闻和文字新闻放在一行” 我们发现，需求中的这些新闻大致可以分为相互独立的几种类型，而对某类">
-<meta property="og:updated_time" content="2018-05-07T15:46:54.300Z">
+<meta property="og:updated_time" content="2018-05-13T15:17:32.001Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式读书笔记(八)">
+<meta name="twitter:title" content="设计模式读书笔记(九)">
 <meta name="twitter:description" content="超值午餐 – 组合模式组合模式: 又称部分-整体模式，将对象组合成树形结构以表示“部分整体”的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性。 例子场景如下：“新闻模块加一条文字新闻”“新闻模块加一条带有直播图标的文字新闻”“新闻模块加一条已分类的文字新闻”“新闻模块加一条图片新闻”“将图片新闻和文字新闻放在一行” 我们发现，需求中的这些新闻大致可以分为相互独立的几种类型，而对某类">
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <title>设计模式读书笔记(八) | Hexo</title>
+  <title>设计模式读书笔记(九) | Hexo</title>
   
 
 
@@ -184,7 +184,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Accueil
           </a>
         </li>
       
@@ -248,7 +248,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">设计模式读书笔记(八)</h1>
+          <h1 class="post-title" itemprop="name headline">设计模式读书笔记(九)</h1>
         
 
         <div class="post-meta">
@@ -258,7 +258,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-07T23:27:19+08:00">
                 2018-05-07
@@ -303,6 +303,10 @@
 <p>我们发现，需求中的这些新闻大致可以分为相互独立的几种类型，而对某类新闻做修改时，又不会影响到其他类新闻，这样完全可以将每一类新闻抽象成面向对象编程中的一个类，这样就不会担心日后对某类新闻需求更改而影响到其他类新闻，只需要针对于这些新闻类做出更改即可，如果要完成经理提出的需求，仅需要针对这些新闻中挑选一些组合起来。先将新闻模块整体拆分成个体来对待，然后需要时，将这些不同的个体组合起来即可。</p>
 <h4 id="餐厅里的套餐业务"><a href="#餐厅里的套餐业务" class="headerlink" title="餐厅里的套餐业务"></a>餐厅里的套餐业务</h4><p>举个例子，比如我们中午吃饭，我们一个一个的点的话，很浪费时间，但提供套餐组合的话，我们只需要提供套餐的名字即可，这样又节省时间，餐厅也更加快速响应，虽然餐厅提供了套餐的名字，但是他们在制作的时候，仍然是一个一个制作出来的，每一部分都是独立的个体，而提供给我们的，就是这些个体的组合，最终可以给我们复杂的套餐。</p>
 <p>对于使用组合模式而言，有一个唯一的要求就是需要接口命名的统一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var News = function()&#123;</span><br><span class="line">  // 子容器</span><br><span class="line">  this.children = []</span><br><span class="line">  // 当前组件元素</span><br><span class="line">  this.el = null;</span><br><span class="line">&#125;</span><br><span class="line">News.prototype = &#123;</span><br><span class="line">  init: function()&#123;</span><br><span class="line">    throw new error(&quot;请重写你的方法&quot;)</span><br><span class="line">  &#125;,</span><br><span class="line">  add: function()&#123;</span><br><span class="line">    throw new error(&quot;请重写你的方法&quot;)</span><br><span class="line">  &#125;,</span><br><span class="line">  getElement: function()&#123;</span><br><span class="line">    throw new error(&quot;请重写你的方法&quot;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>定义好这个接口虚拟父类，我们就可以实现所有子类了，组合模式不仅仅是单层次组合，也可以是多层次的组合，我们可以将组合后的整体作为一个部分，继续组合。</p>
+<h4 id="组合要有容器类"><a href="#组合要有容器类" class="headerlink" title="组合要有容器类"></a>组合要有容器类</h4><p>在组合模式中用到了继承，所以我们要把以前学过的继承相关知识拿出来用在组合模式中，比如寄生组合式继承，像下面这样显现新闻模块容器类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">// 容器类构造函数</span><br><span class="line">var Container = function(id, parent)&#123;</span><br><span class="line">  News.call(this)</span><br><span class="line">  this.id = id</span><br><span class="line">  this.parent = parent</span><br><span class="line">  // 构建方法</span><br><span class="line">  this.init()</span><br><span class="line">&#125;</span><br><span class="line">// 寄生式继承父类原型方法</span><br><span class="line">var inheritPrototype = function(Sub,Sup)&#123;</span><br><span class="line">  var F = function()&#123;&#125;</span><br><span class="line">  F.prototype = new Sup()</span><br><span class="line">  F.constructor = F</span><br><span class="line">  Sub.prototype = new F()</span><br><span class="line">  Sub.constructor = Sub</span><br><span class="line">&#125;</span><br><span class="line">inheritPrototype(Container, NewS)</span><br><span class="line">// 构建方法</span><br><span class="line">Container.prototype.init = function()&#123;</span><br><span class="line">  this.el = document.createElement(&apos;ul&apos;)</span><br><span class="line">  this.el.id = this.id</span><br><span class="line">  this.el.className = &apos;new-container&apos;</span><br><span class="line">&#125;</span><br><span class="line">// 添加子元素方法</span><br><span class="line">Container.prototype.add = function(child)&#123;</span><br><span class="line">  this.children.push(child)</span><br><span class="line">  this.el.appendChild(child.getElement())</span><br><span class="line">  return this</span><br><span class="line">&#125;</span><br><span class="line">// 获取当前元素方法</span><br><span class="line">Container.prototype.getElement = function()&#123;</span><br><span class="line">  return this.el</span><br><span class="line">&#125;</span><br><span class="line">// 显示方法</span><br><span class="line">Container.prototype.show = function()&#123;</span><br><span class="line">  this.parent.appendChild(this.el)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 同样下一层级的成员集合类以及后面的新闻组合体类实现的方法与之类似</span><br><span class="line"></span><br><span class="line">var Item = function(className)&#123;</span><br><span class="line">  News.call(this);</span><br><span class="line">  this.className = className || &quot;&quot;;</span><br><span class="line">  this.init()</span><br><span class="line">&#125;</span><br><span class="line">inheritPrototype(Container, NewS)</span><br><span class="line">Item.prototype.init = function()&#123;</span><br><span class="line">  this.el = doucment.createElement(&apos;li&apos;)</span><br><span class="line">  this.el.ckassName = this.className</span><br><span class="line">&#125;</span><br><span class="line">Item.prototype.add = function(child)&#123;</span><br><span class="line">  this.children.push(child)</span><br><span class="line">  this.el.appendChild(child.getElement())</span><br><span class="line">  return this</span><br><span class="line">&#125;</span><br><span class="line">Item.prototype.getElement = function()&#123;</span><br><span class="line">  return this.el</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var NewsGroup = function(className)&#123;</span><br><span class="line">  News.call(this);</span><br><span class="line">  this.className = className || &quot;&quot;;</span><br><span class="line">  this.init()</span><br><span class="line">&#125;</span><br><span class="line">inheritPrototype(Container, NewS)</span><br><span class="line">NewsGroup.prototype.init = function()&#123;</span><br><span class="line">  this.el = doucment.createElement(&apos;li&apos;)</span><br><span class="line">  this.el.ckassName = this.className</span><br><span class="line">&#125;</span><br><span class="line">NewsGroup.prototype.add = function(child)&#123;</span><br><span class="line">  this.children.push(child)</span><br><span class="line">  this.el.appendChild(child.getElement())</span><br><span class="line">  return this</span><br><span class="line">&#125;</span><br><span class="line">NewsGroup.prototype.getElement = function()&#123;</span><br><span class="line">  return this.el</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var news1 = new Container(&apos;news&apos;,document.body)</span><br><span class="line">news1.add(</span><br><span class="line">  new Item(&apos;normal&apos;).add(</span><br><span class="line">    new NewGroup(&apos;has-img&apos;)</span><br><span class="line">  )</span><br><span class="line">).show()</span><br></pre></td></tr></table></figure></p>
+<p>类似这样，每创建一条新闻都是一个独立的个体，互不影响，避免相互间的耦合，也增强了组合后的模块的复杂性，类似的应用场景有表单的应用。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>组合模式能够给我们提供一个清晰的组成结构，组合对象类通过继承同一个父类使其具有统一的方法，这样也方便了我们统一管理与使用，当然此时单体成员与组合体成员行为表现就比较一致了，这也就模糊了简单对象与组合对象的区别。有时这也是一种对数据的分级式处理，清晰而又方便我们对数据的管理与使用。</p>
 
       
     </div>
@@ -336,6 +340,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/13/设计模式读书笔记(十)/" rel="prev" title="设计模式读书笔记(十)">
+                设计模式读书笔记(十) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -389,10 +397,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Table Des Matières
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Ensemble
           </li>
         </ul>
       
@@ -412,8 +420,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">articles</span>
                 </a>
               </div>
             
@@ -449,7 +457,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#超值午餐-–-组合模式"><span class="nav-number">1.</span> <span class="nav-text">超值午餐 – 组合模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#餐厅里的套餐业务"><span class="nav-number">1.2.</span> <span class="nav-text">餐厅里的套餐业务</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#超值午餐-–-组合模式"><span class="nav-number">1.</span> <span class="nav-text">超值午餐 – 组合模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#餐厅里的套餐业务"><span class="nav-number">1.2.</span> <span class="nav-text">餐厅里的套餐业务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合要有容器类"><span class="nav-number">1.3.</span> <span class="nav-text">组合要有容器类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -487,7 +495,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 

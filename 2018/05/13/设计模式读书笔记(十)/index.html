@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="城市公交车–享元模式享元模式： 运用共享技术有效地支持大量的细粒度对象，避免对象间拥有相同内容造成多余的开销。 例子1234567891011121314151617181920212223242526272829var dom = null, // 创建缓存的新闻标题元素    paper = 0, // 当前页数    num = 5 , // 每页显示新闻数目    i = 0, //创建新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式读书笔记(十)">
+<meta property="og:url" content="http://yoursite.com/2018/05/13/设计模式读书笔记(十)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="城市公交车–享元模式享元模式： 运用共享技术有效地支持大量的细粒度对象，避免对象间拥有相同内容造成多余的开销。 例子1234567891011121314151617181920212223242526272829var dom = null, // 创建缓存的新闻标题元素    paper = 0, // 当前页数    num = 5 , // 每页显示新闻数目    i = 0, //创建新">
+<meta property="og:updated_time" content="2018-05-13T16:04:06.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式读书笔记(十)">
+<meta name="twitter:description" content="城市公交车–享元模式享元模式： 运用共享技术有效地支持大量的细粒度对象，避免对象间拥有相同内容造成多余的开销。 例子1234567891011121314151617181920212223242526272829var dom = null, // 创建缓存的新闻标题元素    paper = 0, // 当前页数    num = 5 , // 每页显示新闻数目    i = 0, //创建新">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/13/设计模式读书笔记(十)/"/>
+
+
+
+
+
+  <title>设计模式读书笔记(十) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Accueil
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/13/设计模式读书笔记(十)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式读书笔记(十)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-13T23:17:05+08:00">
+                2018-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="城市公交车–享元模式"><a href="#城市公交车–享元模式" class="headerlink" title="城市公交车–享元模式"></a>城市公交车–享元模式</h3><p>享元模式： 运用共享技术有效地支持大量的细粒度对象，避免对象间拥有相同内容造成多余的开销。</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var dom = null, // 创建缓存的新闻标题元素</span><br><span class="line">    paper = 0, // 当前页数</span><br><span class="line">    num = 5 , // 每页显示新闻数目</span><br><span class="line">    i = 0, //创建新闻元素时保存变量</span><br><span class="line">    len =article.length // 新闻数据长度</span><br><span class="line"></span><br><span class="line">    for(;i &lt; len ; i++)&#123;</span><br><span class="line">      dom = document.createElement(&apos;div&apos;) // 创建包装新闻标题元素</span><br><span class="line">      dom.innerHTML = atricle[i]</span><br><span class="line">      if(i &gt;= num)&#123;</span><br><span class="line">        dom.style.display = &apos;none&apos;</span><br><span class="line">      &#125;</span><br><span class="line">      document.getElementById(&apos;container&apos;).appendChild(dom) // 添加到页面中</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 下一页绑定事件</span><br><span class="line">    document.getElementById(&apos;next_page&apos;).onclick = function()&#123;</span><br><span class="line">      var div = document.getElementById(&apos;container&apos;).getElementByTagName(&apos;div&apos;),</span><br><span class="line">      j = k = n = 0;</span><br><span class="line">      n = ++pager % Math.ceil(len / num) * num</span><br><span class="line">      for(; j &lt; len;j++)&#123;</span><br><span class="line">        div[j].style.dispaly = &apos;none&apos; // 隐藏所有新闻</span><br><span class="line">      &#125;</span><br><span class="line">      for(;k &lt; 5,k++)&#123;</span><br><span class="line">        if(div[n + k])&#123;</span><br><span class="line">          div[n + k].style.display = &apos;block&apos;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这个代码的思路是页面加载后，异步请求新闻数据，然后创建所有条新闻并插入页面中，需要显示那一页就将对应页的新闻显示，其他隐藏</p>
+<h4 id="冗余的结构"><a href="#冗余的结构" class="headerlink" title="冗余的结构"></a>冗余的结构</h4><p>问题就出在这里了，所有的新闻都有同样的结构，只是内容不同罢了，创建了几百条新闻都插入到页面中了并操作造成的多余开销，会导致性能下降，这里就可以用享元模式来解决了。</p>
+<p>享元模式主要对其数据、方法共享分离，它将数据和方法分成内部数据、内部方法、外部数据、外部方法。 内部数据与内部方法指的是相似或者共有的数据与方法，所以将这一部分提取出来减少开销，以提高性能。</p>
+<h4 id="享元对象"><a href="#享元对象" class="headerlink" title="享元对象"></a>享元对象</h4><p>上面的代码都有共同的结构，所以它们应该作为内部的数据，而‘下一页’按钮绑定的事件已经不能再提取抽象了，所以就是外部方法.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">var Flyweight = function()&#123;</span><br><span class="line">  // 已创建的元素</span><br><span class="line">  var created = []</span><br><span class="line">  // 创建一个新闻包装容器</span><br><span class="line">  function create()&#123;</span><br><span class="line">    var dom = document.createElement(&apos;div&apos;)</span><br><span class="line">    // 讲容器插入新闻列表容器</span><br><span class="line">    document.getElementById(&apos;container&apos;).appendChild(dom)</span><br><span class="line">    // 缓存新创建的元素</span><br><span class="line">    created.push(dom)</span><br><span class="line">    return dom</span><br><span class="line">  &#125; </span><br><span class="line">  return &#123;</span><br><span class="line">    getDiv:function()&#123;</span><br><span class="line">      if(created.length &lt; 5)&#123;</span><br><span class="line">        return create()</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        var div = created.shift()</span><br><span class="line">        created.push(div)</span><br><span class="line">        return div</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var paper = 0,</span><br><span class="line">    num = 5,</span><br><span class="line">    i = 0, //创建新闻元素时保存变量</span><br><span class="line">    len =article.length // 新闻数据长度</span><br><span class="line"></span><br><span class="line">    for(;i &lt; 5 ; i++)&#123;</span><br><span class="line">      if(article[i])&#123;</span><br><span class="line">        Flyweight.getDiv().innerHTML = article[i]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    document.getElementById(&apos;next_page&apos;).onclick = function()&#123;</span><br><span class="line">      if(article.length &lt; 5&gt;)&#123;</span><br><span class="line">        return </span><br><span class="line">      &#125;</span><br><span class="line">      var n = ++pager * num % len;</span><br><span class="line">      for(var j = 0 ;j &lt; 5; j++)&#123;</span><br><span class="line">        if(article[n + j])&#123;</span><br><span class="line">          // 存在n + j 就插入</span><br><span class="line">            Flyweight.getDiv().innerHTML = article[n + j]</span><br><span class="line">          // 否则插入起始位置第 n + j - len 条</span><br><span class="line">        &#125;else if(article[n + j - len])&#123;</span><br><span class="line">             Flyweight.getDiv().innerHTML = article[n + j]</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">          // 不存在就插入空</span><br><span class="line">             Flyweight.getDiv().innerHTML = &apos;&apos;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>享元模式的应用是为了提高程序的执行效率与系统的性能，应用时需要找准内部方法数据与外部方法数据，这样才能进行合理的区分。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/07/设计模式读书笔记(九)/" rel="next" title="设计模式读书笔记(九)">
+                <i class="fa fa-chevron-left"></i> 设计模式读书笔记(九)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">articles</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#城市公交车–享元模式"><span class="nav-number">1.</span> <span class="nav-text">城市公交车–享元模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#冗余的结构"><span class="nav-number">1.2.</span> <span class="nav-text">冗余的结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#享元对象"><span class="nav-number">1.3.</span> <span class="nav-text">享元对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
