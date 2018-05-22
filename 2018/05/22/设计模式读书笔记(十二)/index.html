@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通信卫星–观察者模式观察者模式： 定义了一种依赖关系，解决了主体对象与观察者之间的耦合。 卫星的故事目前每个国家都在研发并发射卫星，那么发射卫星有什么作用呢？ 是为了监控气象卫星，监控城市信息等等。那么这一个监控系统就可以称作一个观察者模式或者消息系统。如果让这颗卫星为飞机导航，那么这架飞机就是一个被观察者对象或者主体对象。当然，主体对象是可以变化的，比如飞机飞翔，就像需求中的消息一样，消息的内容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式读书笔记(十二)">
+<meta property="og:url" content="http://yoursite.com/2018/05/22/设计模式读书笔记(十二)/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="通信卫星–观察者模式观察者模式： 定义了一种依赖关系，解决了主体对象与观察者之间的耦合。 卫星的故事目前每个国家都在研发并发射卫星，那么发射卫星有什么作用呢？ 是为了监控气象卫星，监控城市信息等等。那么这一个监控系统就可以称作一个观察者模式或者消息系统。如果让这颗卫星为飞机导航，那么这架飞机就是一个被观察者对象或者主体对象。当然，主体对象是可以变化的，比如飞机飞翔，就像需求中的消息一样，消息的内容">
+<meta property="og:updated_time" content="2018-05-22T15:19:49.249Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式读书笔记(十二)">
+<meta name="twitter:description" content="通信卫星–观察者模式观察者模式： 定义了一种依赖关系，解决了主体对象与观察者之间的耦合。 卫星的故事目前每个国家都在研发并发射卫星，那么发射卫星有什么作用呢？ 是为了监控气象卫星，监控城市信息等等。那么这一个监控系统就可以称作一个观察者模式或者消息系统。如果让这颗卫星为飞机导航，那么这架飞机就是一个被观察者对象或者主体对象。当然，主体对象是可以变化的，比如飞机飞翔，就像需求中的消息一样，消息的内容">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/22/设计模式读书笔记(十二)/"/>
+
+
+
+
+
+  <title>设计模式读书笔记(十二) | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/设计模式读书笔记(十二)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式读书笔记(十二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-22T22:26:20+08:00">
+                2018-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="通信卫星–观察者模式"><a href="#通信卫星–观察者模式" class="headerlink" title="通信卫星–观察者模式"></a>通信卫星–观察者模式</h3><p>观察者模式： 定义了一种依赖关系，解决了主体对象与观察者之间的耦合。</p>
+<h4 id="卫星的故事"><a href="#卫星的故事" class="headerlink" title="卫星的故事"></a>卫星的故事</h4><pre><code>目前每个国家都在研发并发射卫星，那么发射卫星有什么作用呢？
+</code></pre><p>是为了监控气象卫星，监控城市信息等等。那么这一个监控系统就可以称作一个观察者模式或者消息系统。如果让这颗卫星为飞机导航，那么这架飞机就是一个被观察者对象或者主体对象。当然，主体对象是可以变化的，比如飞机飞翔，就像需求中的消息一样，消息的内容每时每刻都可能变化。因此飞机经常发出位置消息，比如从沈阳到香港，途中经过北京，那么当经过北京上空时，会向卫星发射一则消息来指明自己的位置。卫星接受这些消息后，就能确认这架飞机的具体位置。卫星接收到这些消息并不是最终的目的，最终的目的是要通知地面中转站。地面中转站知道了消息后，会根据消息的不同，对消息进行处理。</p>
+<pre><code>于是，卫星，飞机，地面中转站的模型就可以简化成这样， 地面中转站想要知道飞机的情况，就在卫星上先注册这架飞机，飞机每到达一个地方，就把所在的位置信息发送给卫星，卫星接收到后，就通知地面中转站飞机的位置，然后地面中转站就进行相应的处理。
+</code></pre><h4 id="创建一个观察者"><a href="#创建一个观察者" class="headerlink" title="创建一个观察者"></a>创建一个观察者</h4><p>把观察者或者消息系统当做一个对象，这个对象包括的方法目前来看，第一个是接收消息，第二个是向订阅该消息的对象发送相应的消息。<br>然后，既然能够接收消息，当飞机到达了终点站时，这就不需要再监控，这就进行了注销，所以第三个是取消注册的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function()&#123;&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function()&#123;&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>好了，观察者对象的雏形出来了，我们剩下需要做的事情就是一一来实现这三个方法。<br>首先实现注册消息接口的方法， 注册方法的作用是将订阅者（地面中转站）注册的消息推入到消息队列中，因此我们需要接受2个参数：消息类型以及相应的处理动作，在推入到消息队列时如果此消息不存在则应该创建一个该消息类型并将 该消息放入队列中，如果已经存在则应该将该消息执行方法推入该消息执行的方法队列中，这么做的目的也是保证多个模块注册同一则消息能顺利执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function(type, fn)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []).push(fn)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function()&#123;&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>对于发布消息方法，其功能是当观察者发布一个消息时将所有订阅者订阅的消息一次执行。接收2个参数，消息类型以及动作执行时需要传递的参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function(type, fn)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []).push(fn)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function(type，args)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []）.forEach(function(fn)&#123;</span><br><span class="line">				fn.call(this,args || &#123;&#125;)</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>最后的就是将消息清楚的办法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function(type, fn)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []).push(fn)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function(type，args)&#123;</span><br><span class="line">			(_message[type] || []).forEach(function(fn)&#123;</span><br><span class="line">				fn.call(this,args || &#123;&#125;)</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function(type,fn)&#123;</span><br><span class="line">			_message[type] = (_message[type] || []）.filter(function(item)&#123;</span><br><span class="line">				return item !== fn</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>观察者模式最主要的作用是解决类或者对象之间的耦合，解耦两个相互依赖的对象，使其依赖于观察者的消息机制。这样对于任意一个订阅者来说，其他订阅者的变动不会影响到自身。对于每一个订阅者来说，其自身既可以是消息的发出者也可以是消息的订阅者，这都依赖于调用观察者对象的三种方法（注册消息，发出消息，移除消息）中的哪一个。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/20/设计模式读书笔记(十一)/" rel="next" title="设计模式读书笔记(十一)">
+                <i class="fa fa-chevron-left"></i> 设计模式读书笔记(十一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#通信卫星–观察者模式"><span class="nav-number">1.</span> <span class="nav-text">通信卫星–观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#卫星的故事"><span class="nav-number">1.1.</span> <span class="nav-text">卫星的故事</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个观察者"><span class="nav-number">1.2.</span> <span class="nav-text">创建一个观察者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

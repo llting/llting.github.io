@@ -228,6 +228,134 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/设计模式读书笔记(十二)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/22/设计模式读书笔记(十二)/" itemprop="url">设计模式读书笔记(十二)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-22T22:26:20+08:00">
+                2018-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="通信卫星–观察者模式"><a href="#通信卫星–观察者模式" class="headerlink" title="通信卫星–观察者模式"></a>通信卫星–观察者模式</h3><p>观察者模式： 定义了一种依赖关系，解决了主体对象与观察者之间的耦合。</p>
+<h4 id="卫星的故事"><a href="#卫星的故事" class="headerlink" title="卫星的故事"></a>卫星的故事</h4><pre><code>目前每个国家都在研发并发射卫星，那么发射卫星有什么作用呢？
+</code></pre><p>是为了监控气象卫星，监控城市信息等等。那么这一个监控系统就可以称作一个观察者模式或者消息系统。如果让这颗卫星为飞机导航，那么这架飞机就是一个被观察者对象或者主体对象。当然，主体对象是可以变化的，比如飞机飞翔，就像需求中的消息一样，消息的内容每时每刻都可能变化。因此飞机经常发出位置消息，比如从沈阳到香港，途中经过北京，那么当经过北京上空时，会向卫星发射一则消息来指明自己的位置。卫星接受这些消息后，就能确认这架飞机的具体位置。卫星接收到这些消息并不是最终的目的，最终的目的是要通知地面中转站。地面中转站知道了消息后，会根据消息的不同，对消息进行处理。</p>
+<pre><code>于是，卫星，飞机，地面中转站的模型就可以简化成这样， 地面中转站想要知道飞机的情况，就在卫星上先注册这架飞机，飞机每到达一个地方，就把所在的位置信息发送给卫星，卫星接收到后，就通知地面中转站飞机的位置，然后地面中转站就进行相应的处理。
+</code></pre><h4 id="创建一个观察者"><a href="#创建一个观察者" class="headerlink" title="创建一个观察者"></a>创建一个观察者</h4><p>把观察者或者消息系统当做一个对象，这个对象包括的方法目前来看，第一个是接收消息，第二个是向订阅该消息的对象发送相应的消息。<br>然后，既然能够接收消息，当飞机到达了终点站时，这就不需要再监控，这就进行了注销，所以第三个是取消注册的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function()&#123;&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function()&#123;&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>好了，观察者对象的雏形出来了，我们剩下需要做的事情就是一一来实现这三个方法。<br>首先实现注册消息接口的方法， 注册方法的作用是将订阅者（地面中转站）注册的消息推入到消息队列中，因此我们需要接受2个参数：消息类型以及相应的处理动作，在推入到消息队列时如果此消息不存在则应该创建一个该消息类型并将 该消息放入队列中，如果已经存在则应该将该消息执行方法推入该消息执行的方法队列中，这么做的目的也是保证多个模块注册同一则消息能顺利执行。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function(type, fn)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []).push(fn)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function()&#123;&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>对于发布消息方法，其功能是当观察者发布一个消息时将所有订阅者订阅的消息一次执行。接收2个参数，消息类型以及动作执行时需要传递的参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function(type, fn)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []).push(fn)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function(type，args)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []）.forEach(function(fn)&#123;</span><br><span class="line">				fn.call(this,args || &#123;&#125;)</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function()&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<p>最后的就是将消息清楚的办法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 将观察者放在闭包中， 当页面加载就立即执行</span><br><span class="line">var Observer = (function()&#123;</span><br><span class="line">	// 防止消息队列暴露，而被外部变量获取到私自更改，故将消息容器作为静态私有变量保存</span><br><span class="line">	var _message = &#123;&#125;;</span><br><span class="line">	return &#123;</span><br><span class="line">		// 注册消息接口</span><br><span class="line">		regist : function(type, fn)&#123;</span><br><span class="line">			(_message[type] = _message[type] || []).push(fn)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 发布消息接口</span><br><span class="line">		fire: function(type，args)&#123;</span><br><span class="line">			(_message[type] || []).forEach(function(fn)&#123;</span><br><span class="line">				fn.call(this,args || &#123;&#125;)</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;,</span><br><span class="line">		// 移除消息接口</span><br><span class="line">		remove: function(type,fn)&#123;</span><br><span class="line">			_message[type] = (_message[type] || []）.filter(function(item)&#123;</span><br><span class="line">				return item !== fn</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>观察者模式最主要的作用是解决类或者对象之间的耦合，解耦两个相互依赖的对象，使其依赖于观察者的消息机制。这样对于任意一个订阅者来说，其他订阅者的变动不会影响到自身。对于每一个订阅者来说，其自身既可以是消息的发出者也可以是消息的订阅者，这都依赖于调用观察者对象的三种方法（注册消息，发出消息，移除消息）中的哪一个。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/20/设计模式读书笔记(十一)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1396,134 +1524,6 @@ Lamborghini.prototype = {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/15/设计模式读书笔记(二)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/15/设计模式读书笔记(二)/" itemprop="url">设计模式读书笔记(二)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-15T23:08:26+08:00">
-                2018-04-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。
-</code></pre><h2 id="创建型设计模式"><a href="#创建型设计模式" class="headerlink" title="创建型设计模式"></a>创建型设计模式</h2><p>创建型设计模式是一类处理对象创建的设计模式，通过某种方法控制对象的创建来避免基本对象创建时可能导致设计上的问题或增加设计上的复杂度。</p>
-<h3 id="给我一张名片–工厂方法模式"><a href="#给我一张名片–工厂方法模式" class="headerlink" title="给我一张名片–工厂方法模式"></a>给我一张名片–工厂方法模式</h3><p>工厂方法模式：通过对产品类的抽象使其创建业务主要负责用于创建多类产品的实例。工厂方法模式的本意是将实际创建对象工作推迟到子类，这样核心类就成了抽象类。</p>
-<h4 id="安全模式"><a href="#安全模式" class="headerlink" title="安全模式"></a>安全模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var Demo = function()&#123;&#125;</span><br><span class="line">Demo.prototype = &#123;</span><br><span class="line">  show: function()&#123;</span><br><span class="line">    console.log(&apos;成功获取&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var d = new Demo()</span><br><span class="line">d.show() // 获取成功</span><br><span class="line">var d= Demo();</span><br><span class="line">d.show // Uncaught TypeError: Cannot read property &apos;show&apos; of undefined</span><br></pre></td></tr></table></figure>
-<p>安全模式就是为了防止这种情况的发生<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var Demo = function()&#123;</span><br><span class="line">  if(!(this instanceof Demo))&#123;</span><br><span class="line">    return new Demo()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var d= Demo();</span><br><span class="line">d.show // 获取成功</span><br></pre></td></tr></table></figure></p>
-<p>有了安全模式，我们就可以将这种技术运用到我们的工厂方法中了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 工厂类</span><br><span class="line">var Factory = function(type, content)&#123;</span><br><span class="line">  if(this instanceof Factory)&#123;</span><br><span class="line">    var s = new this[type](content)</span><br><span class="line">    return s</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    return new Factory(type, content)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>工厂原型中设置创建所有类型数据对象的基类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Factory.prototype = &#123;</span><br><span class="line">  Java : function(content)&#123;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;,</span><br><span class="line">  JavaScript : function(content)&#123;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;,</span><br><span class="line">  UI : function(content)&#123;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;,</span><br><span class="line">  PHP : function(content)&#123;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样我们以后如果想添加其他类时，只需要将要添加的类写在工厂的原型对象中即可，就好比你在这个工厂函数里注册了一张名片，以后需要哪个类直接拿着名片，查找上面的信息就能找到这个类了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var data = [</span><br><span class="line">  &#123;type:&apos;JavaScript&apos;,content:&apos;JavaScript哪家强&apos;&#125;,</span><br><span class="line">  &#123;type:&apos;Java&apos;,content:&apos;Java哪家强&apos;&#125;,</span><br><span class="line">  &#123;type:&apos;PHP&apos;,content:&apos;PHP哪家强&apos;&#125;</span><br><span class="line">  &#123;type:&apos;Go&apos;,content:&apos;Go哪家强&apos;&#125;</span><br><span class="line">  &#123;type:&apos;UI&apos;,content:&apos;UI哪家强&apos;&#125;</span><br><span class="line">]</span><br><span class="line">data.forEach((item)=&gt;&#123;</span><br><span class="line">  Factory(item.type,item.content)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>对于创建多个类对象，简单工厂模式就不太实用了，用工厂方法模式我们可以轻松的创建多个类的实例对象，这样工厂方法对象在创建对象的方式上也避免了使用者与对象类之间的耦合，用户不必关心创建对象的具体类，只需要调用工厂方法即可<br>这就是给我一张名片–工厂方法模式</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1574,7 +1574,7 @@ Lamborghini.prototype = {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
