@@ -81,13 +81,13 @@
 
 <meta name="description" content="城市间的公路 – 桥接模式桥接模式: 在系统沿着多个维度变化的同时，又不增加其复杂度并已达到解耦。 例子场景如下： 当我们需要把页面上部的用户信息部分添加一些鼠标滑过特效，用户信息由很多小部件组成。对于用户名，鼠标划过直接改变北京色，但是像用户等级、用户消息这类部件只能改变里面的数字内容，处理的逻辑不太一样，所以写了不少代码，不过写完时，自己感觉很多是冗余的，却又不知道该如何改善。 1234567">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式读书笔记(八)">
+<meta property="og:title" content="桥接模式 - 设计模式读书笔记(八)">
 <meta property="og:url" content="http://yoursite.com/2018/05/06/设计模式读书笔记(八)/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="城市间的公路 – 桥接模式桥接模式: 在系统沿着多个维度变化的同时，又不增加其复杂度并已达到解耦。 例子场景如下： 当我们需要把页面上部的用户信息部分添加一些鼠标滑过特效，用户信息由很多小部件组成。对于用户名，鼠标划过直接改变北京色，但是像用户等级、用户消息这类部件只能改变里面的数字内容，处理的逻辑不太一样，所以写了不少代码，不过写完时，自己感觉很多是冗余的，却又不知道该如何改善。 1234567">
-<meta property="og:updated_time" content="2018-05-06T16:10:51.497Z">
+<meta property="og:updated_time" content="2018-05-23T14:36:17.294Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式读书笔记(八)">
+<meta name="twitter:title" content="桥接模式 - 设计模式读书笔记(八)">
 <meta name="twitter:description" content="城市间的公路 – 桥接模式桥接模式: 在系统沿着多个维度变化的同时，又不增加其复杂度并已达到解耦。 例子场景如下： 当我们需要把页面上部的用户信息部分添加一些鼠标滑过特效，用户信息由很多小部件组成。对于用户名，鼠标划过直接改变北京色，但是像用户等级、用户消息这类部件只能改变里面的数字内容，处理的逻辑不太一样，所以写了不少代码，不过写完时，自己感觉很多是冗余的，却又不知道该如何改善。 1234567">
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <title>设计模式读书笔记(八) | Hexo</title>
+  <title>桥接模式 - 设计模式读书笔记(八) | Hexo</title>
   
 
 
@@ -184,7 +184,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -248,7 +248,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">设计模式读书笔记(八)</h1>
+          <h1 class="post-title" itemprop="name headline">桥接模式 - 设计模式读书笔记(八)</h1>
         
 
         <div class="post-meta">
@@ -258,7 +258,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-06T23:29:11+08:00">
                 2018-05-06
@@ -329,8 +329,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/27/设计模式读书笔记(七)/" rel="next" title="设计模式读书笔记(七)">
-                <i class="fa fa-chevron-left"></i> 设计模式读书笔记(七)
+              <a href="/2018/04/27/设计模式读书笔记(七)/" rel="next" title="装饰者模式 - 设计模式读书笔记(七)">
+                <i class="fa fa-chevron-left"></i> 装饰者模式 - 设计模式读书笔记(七)
               </a>
             
           </div>
@@ -339,8 +339,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/07/设计模式读书笔记(九)/" rel="prev" title="设计模式读书笔记(九)">
-                设计模式读书笔记(九) <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/07/设计模式读书笔记(九)/" rel="prev" title="组合模式 - 设计模式读书笔记(九)">
+                组合模式 - 设计模式读书笔记(九) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -395,10 +395,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -418,8 +418,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -485,7 +485,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
