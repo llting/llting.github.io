@@ -85,7 +85,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/05/13/设计模式读书笔记(十)/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="城市公交车–享元模式享元模式： 运用共享技术有效地支持大量的细粒度对象，避免对象间拥有相同内容造成多余的开销。 例子1234567891011121314151617181920212223242526272829var dom = null, // 创建缓存的新闻标题元素    paper = 0, // 当前页数    num = 5 , // 每页显示新闻数目    i = 0, //创建新">
-<meta property="og:updated_time" content="2018-05-23T14:35:58.804Z">
+<meta property="og:updated_time" content="2018-06-06T16:22:36.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="享元模式 - 设计模式读书笔记(十)">
 <meta name="twitter:description" content="城市公交车–享元模式享元模式： 运用共享技术有效地支持大量的细粒度对象，避免对象间拥有相同内容造成多余的开销。 例子1234567891011121314151617181920212223242526272829var dom = null, // 创建缓存的新闻标题元素    paper = 0, // 当前页数    num = 5 , // 每页显示新闻数目    i = 0, //创建新">
@@ -184,7 +184,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Startseite
+            Accueil
           </a>
         </li>
       
@@ -194,7 +194,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archiv
+            Archives
           </a>
         </li>
       
@@ -258,7 +258,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-13T23:17:05+08:00">
                 2018-05-13
@@ -303,7 +303,7 @@
 <p>这个代码的思路是页面加载后，异步请求新闻数据，然后创建所有条新闻并插入页面中，需要显示那一页就将对应页的新闻显示，其他隐藏</p>
 <h4 id="冗余的结构"><a href="#冗余的结构" class="headerlink" title="冗余的结构"></a>冗余的结构</h4><p>问题就出在这里了，所有的新闻都有同样的结构，只是内容不同罢了，创建了几百条新闻都插入到页面中了并操作造成的多余开销，会导致性能下降，这里就可以用享元模式来解决了。</p>
 <p>享元模式主要对其数据、方法共享分离，它将数据和方法分成内部数据、内部方法、外部数据、外部方法。 内部数据与内部方法指的是相似或者共有的数据与方法，所以将这一部分提取出来减少开销，以提高性能。</p>
-<h4 id="享元对象"><a href="#享元对象" class="headerlink" title="享元对象"></a>享元对象</h4><p>上面的代码都有共同的结构，所以它们应该作为内部的数据，而‘下一页’按钮绑定的事件已经不能再提取抽象了，所以就是外部方法.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">var Flyweight = function()&#123;</span><br><span class="line">  // 已创建的元素</span><br><span class="line">  var created = []</span><br><span class="line">  // 创建一个新闻包装容器</span><br><span class="line">  function create()&#123;</span><br><span class="line">    var dom = document.createElement(&apos;div&apos;)</span><br><span class="line">    // 讲容器插入新闻列表容器</span><br><span class="line">    document.getElementById(&apos;container&apos;).appendChild(dom)</span><br><span class="line">    // 缓存新创建的元素</span><br><span class="line">    created.push(dom)</span><br><span class="line">    return dom</span><br><span class="line">  &#125; </span><br><span class="line">  return &#123;</span><br><span class="line">    getDiv:function()&#123;</span><br><span class="line">      if(created.length &lt; 5)&#123;</span><br><span class="line">        return create()</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        var div = created.shift()</span><br><span class="line">        created.push(div)</span><br><span class="line">        return div</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var paper = 0,</span><br><span class="line">    num = 5,</span><br><span class="line">    i = 0, //创建新闻元素时保存变量</span><br><span class="line">    len =article.length // 新闻数据长度</span><br><span class="line"></span><br><span class="line">    for(;i &lt; 5 ; i++)&#123;</span><br><span class="line">      if(article[i])&#123;</span><br><span class="line">        Flyweight.getDiv().innerHTML = article[i]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    document.getElementById(&apos;next_page&apos;).onclick = function()&#123;</span><br><span class="line">      if(article.length &lt; 5&gt;)&#123;</span><br><span class="line">        return </span><br><span class="line">      &#125;</span><br><span class="line">      var n = ++pager * num % len;</span><br><span class="line">      for(var j = 0 ;j &lt; 5; j++)&#123;</span><br><span class="line">        if(article[n + j])&#123;</span><br><span class="line">          // 存在n + j 就插入</span><br><span class="line">            Flyweight.getDiv().innerHTML = article[n + j]</span><br><span class="line">          // 否则插入起始位置第 n + j - len 条</span><br><span class="line">        &#125;else if(article[n + j - len])&#123;</span><br><span class="line">             Flyweight.getDiv().innerHTML = article[n + j]</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">          // 不存在就插入空</span><br><span class="line">             Flyweight.getDiv().innerHTML = &apos;&apos;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="享元对象"><a href="#享元对象" class="headerlink" title="享元对象"></a>享元对象</h4><p>上面的代码都有共同的结构，所以它们应该作为内部的数据，而‘下一页’按钮绑定的事件已经不能再提取抽象了，所以就是外部方法.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">var Flyweight = function()&#123;</span><br><span class="line">  // 已创建的元素</span><br><span class="line">  var created = []</span><br><span class="line">  // 创建一个新闻包装容器</span><br><span class="line">  function create()&#123;</span><br><span class="line">    var dom = document.createElement(&apos;div&apos;)</span><br><span class="line">    // 将容器插入新闻列表容器</span><br><span class="line">    document.getElementById(&apos;container&apos;).appendChild(dom)</span><br><span class="line">    // 缓存新创建的元素</span><br><span class="line">    created.push(dom)</span><br><span class="line">    return dom</span><br><span class="line">  &#125; </span><br><span class="line">  return &#123;</span><br><span class="line">    getDiv:function()&#123;</span><br><span class="line">      if(created.length &lt; 5)&#123;</span><br><span class="line">        return create()</span><br><span class="line">      &#125;else&#123;</span><br><span class="line">        var div = created.shift()</span><br><span class="line">        created.push(div)</span><br><span class="line">        return div</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var paper = 0,</span><br><span class="line">    num = 5,</span><br><span class="line">    i = 0, //创建新闻元素时保存变量</span><br><span class="line">    len =article.length // 新闻数据长度</span><br><span class="line"></span><br><span class="line">    for(;i &lt; 5 ; i++)&#123;</span><br><span class="line">      if(article[i])&#123;</span><br><span class="line">        Flyweight.getDiv().innerHTML = article[i]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    document.getElementById(&apos;next_page&apos;).onclick = function()&#123;</span><br><span class="line">      if(article.length &lt; 5&gt;)&#123;</span><br><span class="line">        return </span><br><span class="line">      &#125;</span><br><span class="line">      var n = ++pager * num % len;</span><br><span class="line">      for(var j = 0 ;j &lt; 5; j++)&#123;</span><br><span class="line">        if(article[n + j])&#123;</span><br><span class="line">          // 存在n + j 就插入</span><br><span class="line">            Flyweight.getDiv().innerHTML = article[n + j]</span><br><span class="line">          // 否则插入起始位置第 n + j - len 条</span><br><span class="line">        &#125;else if(article[n + j - len])&#123;</span><br><span class="line">             Flyweight.getDiv().innerHTML = article[n + j]</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">          // 不存在就插入空</span><br><span class="line">             Flyweight.getDiv().innerHTML = &apos;&apos;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>享元模式的应用是为了提高程序的执行效率与系统的性能，应用时需要找准内部方法数据与外部方法数据，这样才能进行合理的区分。</p>
 
       
@@ -395,10 +395,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Inhaltsverzeichnis
+            Table Des Matières
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Übersicht
+            Ensemble
           </li>
         </ul>
       
@@ -419,7 +419,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">Artikel</span>
+                  <span class="site-state-item-name">articles</span>
                 </a>
               </div>
             
@@ -485,7 +485,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -493,7 +493,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
