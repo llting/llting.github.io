@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Accueil
+            Startseite
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -214,6 +214,145 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/数据结构与算法/从一个数组求和学习分治思想/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/14/数据结构与算法/从一个数组求和学习分治思想/" itemprop="url">分治思想</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-14T15:08:04+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>分治的简单理解就是将一个复杂的大问题分解成两个或者更多个更小的问题，组合小问题的解从而解决大问题,换句话说，也就是能够解决小问题的方法，同样也适合解决整个大问题。
+</code></pre><h3 id="数组求和"><a href="#数组求和" class="headerlink" title="数组求和"></a>数组求和</h3><p>提到数组求和，相信大多数人第一想到的办法很可能会是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function sum(arr)&#123;</span><br><span class="line">    let sum = 0;</span><br><span class="line">    for(let i = 0; i &lt; arr.length; i++)&#123;</span><br><span class="line">        sum += arr[i]</span><br><span class="line">    &#125;</span><br><span class="line">    return sum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>简洁而又明了，我们从这样的一个大家都熟悉的求和，来导出本章所需要讲解的分治思想，一方面帮助自己理解分治思想，另一方面，也希望借此能够掌握分治思想的基本原理。</p>
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><p>在理解分治思想之前，需要掌握一个无法跳跃的思想，那就是递归，理解了递归，是理解分治的关键。</p>
+<p>由于递归函数调用自己，为了避免发生死循环，因此，第一步需要告诉它，何时停止调用自己。正因为如此，所以每个递归函数都分为两部分：基线条件（base case）和递归条件（recursive case）。 递归条件指的是函数何时调用自己，而基线条件是指函数何时不再继续调用自己，从而避免死循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function coundown(i)&#123;</span><br><span class="line">    console.log(i)</span><br><span class="line">    if( i &lt; 1)&#123; // 基线条件: 当i &lt; 1 时，就此结束</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    coundown(i - 1) // 递归条件: 否则使用 i - 1 继续调用函数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h3><p>每一次函数执行都会有一个调用栈(call stack),相当于一个办事清单一样。插入的代办事项放在清单的最上面，读取代办事项时，你只读取最上面的那个，并将其删除。因此这个代办事项只有两个操作，压入(插入)和弹出(删除)。这种数据结构就是栈。每一次调用函数的时候都会被压入栈中，当运行结束后弹出。相应的每一次的变量信息都保存在该栈中。</p>
+<h3 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h3><p>分思想包含两部分：<br>(1) 找出基准条件，这种条件必须尽可能的简单。<br>(2) 不断将问题分解（或者说缩小规模），直到符合基准条件。</p>
+<h4 id="基准条件"><a href="#基准条件" class="headerlink" title="基准条件"></a>基准条件</h4><p>对于数组求和来说，什么是最快速，最简单的呢？思考这一问题的过程，就是找出基准条件的过程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let arr1 = [],</span><br><span class="line">let arr2 = [1]</span><br><span class="line">``` </span><br><span class="line">arr1的和是多少？ 0； arr2的和是多少？ 1</span><br><span class="line">无需计算，一眼就可以看出来，这就是基准条件。</span><br></pre></td></tr></table></figure></p>
+<p>function sum(arr){<br>    // 基准条件<br>    let len = arr.length;<br>    if(len &lt;=1){<br>        return len == 1 ? arr[0] : 0<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 分解条件</span><br></pre></td></tr></table></figure></p>
+<p>let arr = [1,2,3,4,5]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">既然基准条件是数组为空或者一个元素时，那么按照第二步骤，我们就需要把数组通过某种方式不断的所小规模，使其最终变成只包含1个或者0个元素</span><br></pre></td></tr></table></figure></p>
+<p>1 + sum([2,3,4,5])<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">传给sum的数组变短了，也就是缩小了问题的规模。</span><br><span class="line"></span><br><span class="line">把sum([1,2,3,4,5]) =&gt;  1+ sum([2,3,4,5])的过程，隐含着的信息是分区为1</span><br></pre></td></tr></table></figure></p>
+<p>function sum(arr){<br>    // 基准条件<br>    let len = arr.length;hex<br>    if(len &lt;=1){<br>        return len == 1 ? arr[0] : 0 ;<br>    }<br>    // 分区条件<br>    let partitionIndex = 1;<br>    let leftNum = arr[partitionIndex -1];</p>
+<pre><code>// 缩小问题规模
+let rightArr = arr.slice(partitionIndex);
+let rightNum = sum(rightArr);
+
+// 分解后求和,每次信息将保留在调用栈中
+return _sum(leftNum,rightNum);
+</code></pre><p>}<br>function _sum(leftNum, rightNum){<br>    return leftNum + rightNum<br>}<br>```</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>分治思想是一种解决问题的通用方法，快速排序，归并排序都是运用了这种思想.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -257,7 +396,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T22:27:12+08:00">
                 2018-05-23
@@ -383,7 +522,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-22T22:26:20+08:00">
                 2018-05-22
@@ -511,7 +650,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-20T13:41:43+08:00">
                 2018-05-20
@@ -638,7 +777,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-13T23:17:05+08:00">
                 2018-05-13
@@ -764,7 +903,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-07T23:27:19+08:00">
                 2018-05-07
@@ -892,7 +1031,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-06T23:29:11+08:00">
                 2018-05-06
@@ -1018,7 +1157,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-27T22:14:35+08:00">
                 2018-04-27
@@ -1147,7 +1286,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-25T23:29:53+08:00">
                 2018-04-25
@@ -1277,7 +1416,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-19T22:57:39+08:00">
                 2018-04-19
@@ -1366,133 +1505,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/18/设计模式读书笔记(四)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/18/设计模式读书笔记(四)/" itemprop="url">建造者模式 - 设计模式读书笔记(四)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posté le</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-18T22:38:05+08:00">
-                2018-04-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <pre><code>设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。
-</code></pre><h2 id="创建型设计模式"><a href="#创建型设计模式" class="headerlink" title="创建型设计模式"></a>创建型设计模式</h2><p>创建型设计模式是一类处理对象创建的设计模式，通过某种方法控制对象的创建来避免基本对象创建时可能导致设计上的问题或增加设计上的复杂度。</p>
-<h3 id="分即是合–建造者模式"><a href="#分即是合–建造者模式" class="headerlink" title="分即是合–建造者模式"></a>分即是合–建造者模式</h3><p>建造者模式：将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。</p>
-<h3 id="建造者模式与工厂模式的区别"><a href="#建造者模式与工厂模式的区别" class="headerlink" title="建造者模式与工厂模式的区别"></a>建造者模式与工厂模式的区别</h3><p>1.工厂模式主要是为了创建对象实例或者类簇(抽象工厂)，关心的是最终产出(创建的是什么)。不关心创建的整个过程。<br>2.建造者模式在创建对象时更为复杂，虽然其目的也是为了创建对象，但是更多关心的是创建这个对象的整个过程，甚至于创建对象的每一个细节</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">// 创建一位人类</span><br><span class="line">var Human = function(param)&#123;</span><br><span class="line">  this.skill = param &amp;&amp; param.skill || &quot;保密&quot;</span><br><span class="line">  this.hobby = param &amp;&amp; param.hobby || &quot;保密&quot;</span><br><span class="line">&#125;</span><br><span class="line">Human.prototype = function()&#123;</span><br><span class="line">  getSkill: function()&#123;</span><br><span class="line">    return this.skill</span><br><span class="line">  &#125;,</span><br><span class="line">  getHobby: function()&#123;</span><br><span class="line">    return this.hobby</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实例化姓名类</span><br><span class="line">var Named = function()&#123;</span><br><span class="line">  var that = this</span><br><span class="line">  (function(name, that)&#123;</span><br><span class="line">    that.wholeName = name</span><br><span class="line">    if(name.indexOf(&quot; &quot;) &gt; -1)&#123;</span><br><span class="line">      that.FirstName = name.slice(0, name.indexOf(&quot; &quot;))</span><br><span class="line">      that.SecondName = name.slice(name.indexOf(&quot; &quot;))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)(name, that)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实例化职业类</span><br><span class="line">var Work = function()&#123;</span><br><span class="line">  var this = that</span><br><span class="line">  (function(work, that)&#123;</span><br><span class="line">    swicth(work)&#123;</span><br><span class="line">      case &quot;code&quot; :</span><br><span class="line">        that.work = &quot;工程师&quot;</span><br><span class="line">        that.workDescript = &quot;每天沉醉于编程&quot;</span><br><span class="line">        break;</span><br><span class="line">      case &quot;UI&quot; :</span><br><span class="line">        that.work = &quot;设计师&quot;</span><br><span class="line">        that.workDescript = &quot;设计更是一种艺术&quot;</span><br><span class="line">        break;</span><br><span class="line">      case &quot;teach&quot; :</span><br><span class="line">        that.work = &quot;教师&quot;</span><br><span class="line">        that.workDescript = &quot;分享也是一种快乐&quot;</span><br><span class="line">        break;</span><br><span class="line">     default: </span><br><span class="line">        that.work = work;</span><br><span class="line">        that.workDescript = &quot;对不起，我们还不清楚您所选择职位的描述&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)(work, that)</span><br><span class="line">&#125;</span><br><span class="line">Work.prototype.changeWork = function(work)&#123;</span><br><span class="line">    this.work = work</span><br><span class="line">&#125;</span><br><span class="line">Work.prototype.changeDescript = function(descript)&#123;</span><br><span class="line">    this.workDescript = descript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这样我们就创建出3个类别来了–应聘者类，名字解析类，期望工作类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  应聘者建造者</span><br><span class="line">  参数 name</span><br><span class="line">  参数 work</span><br><span class="line">*/</span><br><span class="line">var Person = function(name,work)&#123;</span><br><span class="line">  var _person = new Human()</span><br><span class="line">  _person.name = new Named(name)</span><br><span class="line">  _person.work = new Work(work)</span><br><span class="line">  return _person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person(&apos;xiao ming&apos;,&apos;code&apos;)</span><br><span class="line">console.log(person.skill)</span><br><span class="line">console.log(person.name.FirstName)</span><br><span class="line">console.log(person.work.work)</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>创建者模式创建的类更为复杂，也可以说这种模式创建的对象是一个复合对象，这种模式无形中增加了结构的复杂性，如果对象的细粒度很小、复用性很低、变化程度不大的情况下，我们还是应该采用创建一个整体的形式。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1543,8 +1555,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">articles</span>
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1594,7 +1606,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -1602,7 +1614,7 @@
 
 
 
-  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 

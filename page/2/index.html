@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Accueil
+            Startseite
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -214,6 +214,133 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/18/设计模式读书笔记(四)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/18/设计模式读书笔记(四)/" itemprop="url">建造者模式 - 设计模式读书笔记(四)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-18T22:38:05+08:00">
+                2018-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>设计模式能够保证我们以优雅的方式组织我们的代码，通过学习掌握，能够写出漂亮，具有结构性和组织性的代码。
+</code></pre><h2 id="创建型设计模式"><a href="#创建型设计模式" class="headerlink" title="创建型设计模式"></a>创建型设计模式</h2><p>创建型设计模式是一类处理对象创建的设计模式，通过某种方法控制对象的创建来避免基本对象创建时可能导致设计上的问题或增加设计上的复杂度。</p>
+<h3 id="分即是合–建造者模式"><a href="#分即是合–建造者模式" class="headerlink" title="分即是合–建造者模式"></a>分即是合–建造者模式</h3><p>建造者模式：将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。</p>
+<h3 id="建造者模式与工厂模式的区别"><a href="#建造者模式与工厂模式的区别" class="headerlink" title="建造者模式与工厂模式的区别"></a>建造者模式与工厂模式的区别</h3><p>1.工厂模式主要是为了创建对象实例或者类簇(抽象工厂)，关心的是最终产出(创建的是什么)。不关心创建的整个过程。<br>2.建造者模式在创建对象时更为复杂，虽然其目的也是为了创建对象，但是更多关心的是创建这个对象的整个过程，甚至于创建对象的每一个细节</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">// 创建一位人类</span><br><span class="line">var Human = function(param)&#123;</span><br><span class="line">  this.skill = param &amp;&amp; param.skill || &quot;保密&quot;</span><br><span class="line">  this.hobby = param &amp;&amp; param.hobby || &quot;保密&quot;</span><br><span class="line">&#125;</span><br><span class="line">Human.prototype = function()&#123;</span><br><span class="line">  getSkill: function()&#123;</span><br><span class="line">    return this.skill</span><br><span class="line">  &#125;,</span><br><span class="line">  getHobby: function()&#123;</span><br><span class="line">    return this.hobby</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实例化姓名类</span><br><span class="line">var Named = function()&#123;</span><br><span class="line">  var that = this</span><br><span class="line">  (function(name, that)&#123;</span><br><span class="line">    that.wholeName = name</span><br><span class="line">    if(name.indexOf(&quot; &quot;) &gt; -1)&#123;</span><br><span class="line">      that.FirstName = name.slice(0, name.indexOf(&quot; &quot;))</span><br><span class="line">      that.SecondName = name.slice(name.indexOf(&quot; &quot;))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)(name, that)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 实例化职业类</span><br><span class="line">var Work = function()&#123;</span><br><span class="line">  var this = that</span><br><span class="line">  (function(work, that)&#123;</span><br><span class="line">    swicth(work)&#123;</span><br><span class="line">      case &quot;code&quot; :</span><br><span class="line">        that.work = &quot;工程师&quot;</span><br><span class="line">        that.workDescript = &quot;每天沉醉于编程&quot;</span><br><span class="line">        break;</span><br><span class="line">      case &quot;UI&quot; :</span><br><span class="line">        that.work = &quot;设计师&quot;</span><br><span class="line">        that.workDescript = &quot;设计更是一种艺术&quot;</span><br><span class="line">        break;</span><br><span class="line">      case &quot;teach&quot; :</span><br><span class="line">        that.work = &quot;教师&quot;</span><br><span class="line">        that.workDescript = &quot;分享也是一种快乐&quot;</span><br><span class="line">        break;</span><br><span class="line">     default: </span><br><span class="line">        that.work = work;</span><br><span class="line">        that.workDescript = &quot;对不起，我们还不清楚您所选择职位的描述&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)(work, that)</span><br><span class="line">&#125;</span><br><span class="line">Work.prototype.changeWork = function(work)&#123;</span><br><span class="line">    this.work = work</span><br><span class="line">&#125;</span><br><span class="line">Work.prototype.changeDescript = function(descript)&#123;</span><br><span class="line">    this.workDescript = descript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样我们就创建出3个类别来了–应聘者类，名字解析类，期望工作类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">  应聘者建造者</span><br><span class="line">  参数 name</span><br><span class="line">  参数 work</span><br><span class="line">*/</span><br><span class="line">var Person = function(name,work)&#123;</span><br><span class="line">  var _person = new Human()</span><br><span class="line">  _person.name = new Named(name)</span><br><span class="line">  _person.work = new Work(work)</span><br><span class="line">  return _person;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person(&apos;xiao ming&apos;,&apos;code&apos;)</span><br><span class="line">console.log(person.skill)</span><br><span class="line">console.log(person.name.FirstName)</span><br><span class="line">console.log(person.work.work)</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>创建者模式创建的类更为复杂，也可以说这种模式创建的对象是一个复合对象，这种模式无形中增加了结构的复杂性，如果对象的细粒度很小、复用性很低、变化程度不大的情况下，我们还是应该采用创建一个整体的形式。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -257,7 +384,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-17T23:50:57+08:00">
                 2018-04-17
@@ -414,7 +541,7 @@ Lamborghini.prototype = {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-15T23:08:26+08:00">
                 2018-04-15
@@ -542,7 +669,7 @@ Lamborghini.prototype = {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-14T15:53:22+08:00">
                 2018-04-14
@@ -672,7 +799,7 @@ Lamborghini.prototype = {
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-11T23:34:48+08:00">
                 2018-02-11
@@ -821,8 +948,8 @@ Lamborghini.prototype = {
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">articles</span>
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -872,7 +999,7 @@ Lamborghini.prototype = {
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -880,7 +1007,7 @@ Lamborghini.prototype = {
 
 
 
-  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
